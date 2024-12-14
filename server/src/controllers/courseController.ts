@@ -1,7 +1,6 @@
 import { Request ,Response} from "express";
 import Course from "../models/courseModel";
 
-
 export const listCourses= async(
     req:Request,
     res:Response
@@ -16,7 +15,6 @@ export const listCourses= async(
         res.json({message:"error retrieving courses ",error})
     }
 }
-
 
 export const getCourse= async(
     req:Request,

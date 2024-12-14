@@ -20,11 +20,9 @@ const NonDashboardNavbar = () => {
           <span className="sm:hidden">
             Search
           </span>
-          <BookOpen className="nonDashboard-navbar__search-icon mr-1"></BookOpen>
+          <BookOpen className="nonDashboard-navbar__search-icon mr-1" size={18}></BookOpen>
         </Link>
         </div>
-      </div>
-      
       </div>
     </div>
     <div className='nonDashboard-navbar__actions'>
@@ -33,6 +31,7 @@ const NonDashboardNavbar = () => {
         <Bell className='nonDashboard-navbar__notification-icon'/>
       </button>
       {/* sign in button  */}
+    </div>
     </div>
   </nav>;
 };

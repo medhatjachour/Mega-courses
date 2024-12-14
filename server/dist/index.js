@@ -43,6 +43,7 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const dynamoose = __importStar(require("dynamoose"));
+const courseRoutes_1 = __importDefault(require("./routes/courseRoutes"));
 // route imports 
 // config
 dotenv_1.default.config();
@@ -51,17 +52,25 @@ if (!isProduction) {
     dynamoose.aws.ddb.local();
 }
 const app = (0, express_1.default)();
+// This middleware parses incoming requests with JSON payloads. It's a built-in middleware in Express and is based on body-parser
 app.use(express_1.default.json());
+// Helmet helps secure your Express apps by setting various HTTP headers. This line includes several security middleware functions provided by Helmet.
 app.use((0, helmet_1.default)());
+// This line configures the Cross-Origin Resource Policy (CORP) to allow cross-origin requests. It's a part of Helmet to handle security around resource sharing.
 app.use(helmet_1.default.crossOriginResourcePolicy({ policy: "cross-origin" }));
+// Morgan is a middleware for logging HTTP requests and responses. The "common" format provides a standard predefined logging format.
 app.use((0, morgan_1.default)("common"));
+// This middleware parses incoming requests with JSON payloads, specifically using the body-parser library, even though express.json() does this by default now
 app.use(body_parser_1.default.json());
+// This middleware parses incoming requests with URL-encoded payloads (form data). The extended: false option ensures that the query string library is used
 app.use(body_parser_1.default.urlencoded({ extended: false }));
+// This middleware enables Cross-Origin Resource Sharing (CORS) for your application, allowing it to handle requests from different origins.
 app.use((0, cors_1.default)());
 // routes
 app.get("/", (req, res) => {
     res.send("hello world");
 });
+app.use("/courses", courseRoutes_1.default);
 const port = process.env.PORT || 3000;
 if (!isProduction) {
     app.listen(port, () => {
