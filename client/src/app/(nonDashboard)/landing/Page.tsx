@@ -9,6 +9,7 @@ import { useGetCoursesQuery } from "@/state/api";
 import CourseCardSearch from "@/components/CourseCardSearch";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useUser } from "@clerk/nextjs";
 
 const LoadingSkelton = () => {
   return (
@@ -46,6 +47,8 @@ const LoadingSkelton = () => {
 type MotionDivProps = HTMLMotionProps<"div"> & HTMLAttributes<"div">;
 
 const Landing: React.FC<MotionDivProps> = (props) => {
+
+  const {user }= useUser()
   const router = useRouter()
   const currentImage = useCarousel({ totalImages: 3 });
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
@@ -55,6 +58,7 @@ const Landing: React.FC<MotionDivProps> = (props) => {
   }
   
   console.log(isError);
+  console.log("user",user);
   if(isLoading) return <LoadingSkelton/>
   return (
     <motion.div
