@@ -1,42 +1,45 @@
 "use client"
-import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
+import {  UserButton, useUser } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import {Bell, BookOpen} from 'lucide-react'
 import Link from "next/link";
 
 import React from "react";
+import { SidebarTrigger } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 
-const NonDashboardNavbar = () => {
+const Navbar = ({isCoursePage}:{isCoursePage:boolean}) => {
+
 const {user} = useUser()
   const userRole = user?.publicMetadata?.userType as "student" | "teacher";
-  return <nav className="nonDashboard-navbar">
-    <div className="nonDashboard-navbar__container">
-      <div className='nonDashboard-navbar__search'>
+  return <nav className="dashboard-navbar">
+    <div className="dashboard-navbar__container">
+      <div className='dashboard-navbar__search'>
 
-      <Link href="/" className="nonDashboard-navbar__brand">
-        CourseMega
-      </Link>
+      <div  className="md:hidden">
+        <SidebarTrigger className='dashboard-navbar__sidebar-trigger' />
+      </div>
       <div className="flex items-center gap-4">
         <div className='relative group'>
-        <Link href="/search" className="nonDashboard-navbar__search-input">
+        <Link href="/search" className= {cn("dashboard-navbar__search-input",{"!bg-customgreys-secondarybg":isCoursePage})}>
           <span className = "hidden sm:inline">
             Search Courses 
           </span>
           <span className="sm:hidden">
             Search
           </span>
-          <BookOpen className="nonDashboard-navbar__search-icon mr-1" size={18}></BookOpen>
+          <BookOpen className="dashboard-navbar__search-icon mr-1" size={18}></BookOpen>
         </Link>
         </div>
       </div>
     </div>
-    <div className='nonDashboard-navbar__actions'>
+    <div className='dashboard-navbar__actions'>
       <button className='nonDashboard-navbar__notification-button'>
         <span className='nonDashboard-navbar__notification-indicator'></span>
         <Bell className='nonDashboard-navbar__notification-icon'/>
       </button>
       {/* sign in button  */}
-      <SignedIn>
+
         <UserButton
         appearance={{
           baseTheme:dark,
@@ -49,17 +52,11 @@ const {user} = useUser()
         userProfileMode='navigation'
         userProfileUrl={userRole === "teacher"?"/teacher/profile":"/user/profile"}
         />
-      </SignedIn>
-      <SignedOut>
-        <Link href="/signin" className="nonDashboard-navbar__auth-button--login">
-        Log In</Link>
-        
-        <Link href="/signup" className="nonDashboard-navbar__auth-button--signup">
-        Sign Up</Link>
-      </SignedOut>
+   
+
     </div>
     </div>
   </nav>;
 };
 
-export default NonDashboardNavbar;
+export default Navbar;
