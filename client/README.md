@@ -55,6 +55,7 @@ This project aims to create an enterprise-grade Learning Management Application 
    git clone https://github.com/medhatjachour/mega-courses.git
    cd mega-courses
 
+First, Create .env for the server and the client :
 First, run the development server:
 ---
 ```bash
