@@ -22,9 +22,11 @@ export default function DashboardLayout({
   if (!user) return <div> Please sign to access this page</div>;
   return (
     <SidebarProvider>
-      <div className="dashboard">
+      {/* <div className="dashboard"> */}
         {/* side bar */}
         <AppSidebar/>
+        <div className="dashboard">
+        
         <Navbar isCoursePage={false}/>
         <div className="dashboard__content">
           {/* chapter  side bar  */}
