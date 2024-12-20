@@ -35,6 +35,7 @@ var __importStar = (this && this.__importStar) || (function () {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.clerkClient = void 0;
 const express_1 = __importDefault(require("express"));
@@ -46,6 +47,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const dynamoose = __importStar(require("dynamoose"));
 const courseRoutes_1 = __importDefault(require("./routes/courseRoutes"));
 const userClerkRoutes_1 = __importDefault(require("./routes/userClerkRoutes"));
+const transactionsRoutes_1 = __importDefault(require("./routes/transactionsRoutes"));
 const express_2 = require("@clerk/express");
 // route imports 
 // config
@@ -80,8 +82,9 @@ app.get("/", (req, res) => {
 });
 app.use("/courses", courseRoutes_1.default);
 app.use("/users/clerk", (0, express_2.requireAuth)(), userClerkRoutes_1.default);
+app.use("/transactions/", (0, express_2.requireAuth)(), transactionsRoutes_1.default);
 // server
-const port = process.env.PORT || 3000;
+const port = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000;
 if (!isProduction) {
     app.listen(port, () => {
         console.log(`running on port ${port}`);

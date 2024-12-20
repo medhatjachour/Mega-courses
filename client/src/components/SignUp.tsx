@@ -17,7 +17,7 @@ const SignUpComponent = () => {
     // Check if the current page is the checkout page
     if (isCheckoutPage) {
       // If true, return a URL with a query string that sets the step to 2 and includes the course ID
-      return `checkout?step=2&id=${courseId}`;
+      return `checkout?step=2&id=${courseId}&showSignUp=false`;
     }
     // Retrieve the user type from the user's public metadata
     const userType = user?.publicMetadata?.userType as string;

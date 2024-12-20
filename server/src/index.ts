@@ -7,6 +7,7 @@ import morgan from 'morgan'
 import * as dynamoose from 'dynamoose';
 import courseRoutes from './routes/courseRoutes'
 import userClerkRoutes from './routes/userClerkRoutes'
+import transactionsRoutes from './routes/transactionsRoutes'
 import {clerkMiddleware, createClerkClient, requireAuth} from '@clerk/express'
 // route imports 
  
@@ -48,10 +49,11 @@ app.get("/",(req,res)=>{
 })
 app.use("/courses",courseRoutes)
 app.use("/users/clerk",requireAuth(),userClerkRoutes)
+app.use("/transactions/",requireAuth(),transactionsRoutes)
 
 
 // server
-const port = process.env.PORT || 3000
+const port = process.env.PORT ?? 3000
 if(!isProduction){
     app.listen(port,()=>{
         console.log(`running on port ${port}`);
