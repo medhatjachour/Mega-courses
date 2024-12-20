@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTransaction = exports.createStripePaymentIntent = void 0;
+exports.listTransactions = exports.createTransaction = exports.createStripePaymentIntent = void 0;
 // Import necessary modules and types
 const stripe_1 = __importDefault(require("stripe"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -109,3 +109,20 @@ res // Express response object
     }
 });
 exports.createTransaction = createTransaction;
+const listTransactions = (req, // Express request object
+res // Express response object
+) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.query;
+    const transactions = userId ? yield transactionModel_1.default.query("userId").eq(userId).exec() : yield transactionModel_1.default.scan().exec();
+    try {
+        // Create a Payment Intent with Stripe
+        // Send the client secret of the Payment Intent to the client
+        res.json({ message: "Transaction received successfully", data: transactions });
+    }
+    catch (error) {
+        // Handle any errors that occur during Payment Intent creation
+        res.status(500);
+        res.json({ message: "Error receiving transaction ", error });
+    }
+});
+exports.listTransactions = listTransactions;
