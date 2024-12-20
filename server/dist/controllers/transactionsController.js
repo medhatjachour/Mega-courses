@@ -84,7 +84,7 @@ res // Express response object
             sections: course.sections.map((section) => ({
                 sectionId: section.sectionId,
                 chapters: section.chapters.map((chapter) => ({
-                    chapterId: chapter.chapterID,
+                    chapterId: chapter.chapterId,
                     completed: false
                 }))
             })),

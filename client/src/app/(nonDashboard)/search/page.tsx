@@ -9,8 +9,9 @@ import SelectedCourse from "./SelectedCourse";
 
 type MotionDivProps = HTMLMotionProps<"div"> & HTMLAttributes<"div">;
 const Search: React.FC<MotionDivProps> = (props) => {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  const searchparams = useSearchParams();
+  // here comes the search params error becaus we pass it to the  motion dev in {....props } it's a ts error 
+  const id = searchparams.get("id");
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const router = useRouter();

@@ -80,7 +80,7 @@ export const createTransaction = async (
             sections:course.sections.map((section:any)=>({
                 sectionId:section.sectionId,
                 chapters:section.chapters.map((chapter:any)=>({
-                    chapterId:chapter.chapterID,
+                    chapterId:chapter.chapterId,
                     completed:false
                 }))
             })),

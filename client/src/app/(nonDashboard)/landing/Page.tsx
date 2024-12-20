@@ -57,8 +57,7 @@ const Landing: React.FC<MotionDivProps> = (props) => {
     router.push(`search?id=${courseId}`)
   }
   
-  console.log(isError);
-  console.log("user",user);
+
   if(isLoading) return <LoadingSkelton/>
   return (
     <motion.div
