@@ -6,6 +6,9 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import * as dynamoose from 'dynamoose';
 import courseRoutes from './routes/courseRoutes'
+import userClerkRoutes from './routes/userClerkRoutes'
+import transactionsRoutes from './routes/transactionsRoutes'
+import {clerkMiddleware, createClerkClient, requireAuth} from '@clerk/express'
 // route imports 
  
 // config
@@ -15,7 +18,12 @@ const isProduction = process.env.NODE_ENV === "production"
 if (!isProduction){
     dynamoose.aws.ddb.local()
 }
-const app = express ()
+
+export const clerkClient = createClerkClient({
+    secretKey :process.env.CLERK_SECRET_KEY
+}) 
+
+const app = express () 
 // This middleware parses incoming requests with JSON payloads. It's a built-in middleware in Express and is based on body-parser
 app.use(express.json())
 // Helmet helps secure your Express apps by setting various HTTP headers. This line includes several security middleware functions provided by Helmet.
@@ -30,14 +38,22 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 // This middleware enables Cross-Origin Resource Sharing (CORS) for your application, allowing it to handle requests from different origins.
 app.use(cors())
+// 
+app.use(clerkMiddleware())
+
+
 
 // routes
 app.get("/",(req,res)=>{
     res.send("hello world")
 })
 app.use("/courses",courseRoutes)
+app.use("/users/clerk",requireAuth(),userClerkRoutes)
+app.use("/transactions/",requireAuth(),transactionsRoutes)
 
-const port = process.env.PORT || 3000
+
+// server
+const port = process.env.PORT ?? 3000
 if(!isProduction){
     app.listen(port,()=>{
         console.log(`running on port ${port}`);
