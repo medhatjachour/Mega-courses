@@ -107,17 +107,17 @@ const AppSidebar = () => {
                     <link.icon
                       className={isActive ? "text-white-50" : "text-gray-500"}
                     />
-                      <span
-                        className={cn(
-                          "app-sidebar__nav-text",
-                          isActive ? "text-white-50" : "text-gray-500"
-                        )}
-                      >
-                        {link.label}
-                      </span>
+                    <span
+                      className={cn(
+                        "app-sidebar__nav-text",
+                        isActive ? "text-white-50" : "text-gray-500"
+                      )}
+                    >
+                      {link.label}
+                    </span>
                   </Link>
                 </SidebarMenuButton>
-                {isActive&&<div className="app-sidebar__active-indicator"/>}
+                {isActive && <div className="app-sidebar__active-indicator" />}
               </SidebarMenuItem>
             );
           })}
@@ -125,8 +125,8 @@ const AppSidebar = () => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-            <SidebarMenuItem>
-                <SidebarMenuButton>
+          <SidebarMenuItem>
+            {/* <SidebarMenuButton>
                     <button
                     onClick={()=>{signOut()}}
                         className="app-sidebar__signout"
@@ -134,8 +134,18 @@ const AppSidebar = () => {
                             <LogOut className="mr-2 w-6 h-6"/>
                             <span>Sign Out</span>
                     </button>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
+                </SidebarMenuButton> */}
+            <SidebarMenuButton>
+              {" "}
+              <div
+                onClick={() => signOut()}
+                className="app-sidebar__signout cursor-pointer"
+              >
+                {" "}
+                <LogOut className="mr-2 w-6 h-6" /> <span>Sign Out</span>{" "}
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>

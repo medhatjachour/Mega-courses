@@ -10,7 +10,7 @@ export default clerkMiddleware(async (auth, req) => {
   // Extract session claims using the auth function
   const { sessionClaims } = await auth();
   // Extract the user role from session claims metadata, default to 'student' if not found
-  const userRole = (sessionClaims?.metadata as { userType: 'student' | 'teacher' })?.userType || 'student';
+  const userRole = (sessionClaims?.metadata as { userType: 'student' | 'teacher' })?.userType || 'teacher';
 
   // Check if the request is for a student route
   if (isStudentRoute(req)) {

@@ -16,7 +16,8 @@ export default function DashboardLayout({
   const pathName = usePathname();
   const [courseId, setCourseId] = useState<string | null>(null);
   const { user, isLoaded } = useUser();
-
+  const userType = user?.publicMetadata?.userType as string;
+    console.log("userType",userType)
   //   /handle use effect is course page
   if (!isLoaded) return <Loading />;
   if (!user) return <div> Please sign to access this page</div>;
