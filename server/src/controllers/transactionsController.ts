@@ -105,3 +105,22 @@ export const createTransaction = async (
         res.json({ message: "Error creating transaction", error });
     }
 };
+
+export const listTransactions = async (
+    req: Request, // Express request object
+    res: Response // Express response object
+): Promise<void> => {
+    const {userId} = req.query;
+
+    const transactions = userId? await Transaction.query("userId").eq(userId).exec(): await Transaction.scan().exec()
+    try {
+        // Create a Payment Intent with Stripe
+       
+        // Send the client secret of the Payment Intent to the client
+        res.json({ message: "Transaction received successfully", data: transactions   });
+    } catch (error) {
+        // Handle any errors that occur during Payment Intent creation
+        res.status(500);
+        res.json({ message: "Error receiving transaction ", error });
+    }
+};

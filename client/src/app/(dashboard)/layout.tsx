@@ -16,15 +16,18 @@ export default function DashboardLayout({
   const pathName = usePathname();
   const [courseId, setCourseId] = useState<string | null>(null);
   const { user, isLoaded } = useUser();
-
+  const userType = user?.publicMetadata?.userType as string;
+    console.log("userType",userType)
   //   /handle use effect is course page
   if (!isLoaded) return <Loading />;
   if (!user) return <div> Please sign to access this page</div>;
   return (
     <SidebarProvider>
-      <div className="dashboard">
+      {/* <div className="dashboard"> */}
         {/* side bar */}
         <AppSidebar/>
+        <div className="dashboard">
+        
         <Navbar isCoursePage={false}/>
         <div className="dashboard__content">
           {/* chapter  side bar  */}

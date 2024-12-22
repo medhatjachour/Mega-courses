@@ -7,6 +7,7 @@ import React from 'react'
 import { useCheckoutNavigation } from '@/hooks/useCheckoutNavigation';
 import CheckoutDetailsPage from './details';
 import PaymentPage from './payment';
+import CompletionPage from './completion';
 
 const CheckoutWizard = () => {
   
@@ -22,9 +23,9 @@ const renderStep = () => {
         case 2:
             return <PaymentPage/>;
         case 3:
-            return "completion page";
+            return <CompletionPage/>;
         default  :
-            return "checkout details page";
+            return <CheckoutDetailsPage/>;
         
         }
 }
