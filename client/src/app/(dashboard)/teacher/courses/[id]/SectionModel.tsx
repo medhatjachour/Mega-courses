@@ -60,10 +60,13 @@ const SectionModel = () => {
 
     };
     if (selectedSectionIndex === null) {
+        console.log("not null");
+        
       dispatch(
         dispatch(addSection(newSection))
       );
     } else {
+        console.log("not null222");
       dispatch(
         editSection({
           index: selectedSectionIndex,
@@ -81,7 +84,7 @@ const SectionModel = () => {
     <CustomModal isOpen={isSectionModalOpen} onClose={onClose}>
       <div className="section-modal">
         <div className="section-modal__header">
-          <h2 className="section-modal__title">Add/Edit Chapter</h2>
+          <h2 className="section-modal__title">Add/Edit Section</h2>
           <button className="section-modal__close" onClick={onClose}>
             <X className="w-6 h-6" />
           </button>

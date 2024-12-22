@@ -125,7 +125,7 @@ const ChapterModel = () => {
                     Chapter Video
                   </FormLabel>
                   <FormControl>
-                    <>
+                    <div>
                       {typeof value === "string" && value && (
                         <div className="mb-2 text-sm text-customgreys-dirtyGrey">
                           CurrentVideo file:{value.split("/").pop()}
@@ -147,7 +147,7 @@ const ChapterModel = () => {
                         }}
                         className=" border-none bg-customgreys-darkGrey p-4"
                       />
-                    </>
+                    </div>
                   </FormControl>
                   <FormMessage className="text-red-400" />
                 </FormItem>

@@ -93,8 +93,9 @@ export const updateCourse = async (
         }
 
         if (updateData.price) {
-            const price = parseInt(updateData.price)
-            if (isNaN(price)) {
+            const priceT = parseInt(updateData.price)
+            updateData.price = priceT
+            if (isNaN(priceT)) {
                 res.status(404).json({ message: "invalid price", error: "price must be number" })
                 return
             }
