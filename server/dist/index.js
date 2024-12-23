@@ -48,6 +48,7 @@ const dynamoose = __importStar(require("dynamoose"));
 const courseRoutes_1 = __importDefault(require("./routes/courseRoutes"));
 const userClerkRoutes_1 = __importDefault(require("./routes/userClerkRoutes"));
 const transactionsRoutes_1 = __importDefault(require("./routes/transactionsRoutes"));
+const userCourseProgress_1 = __importDefault(require("./routes/userCourseProgress"));
 const express_2 = require("@clerk/express");
 // route imports 
 // config
@@ -83,6 +84,7 @@ app.get("/", (req, res) => {
 app.use("/courses", courseRoutes_1.default);
 app.use("/users/clerk", (0, express_2.requireAuth)(), userClerkRoutes_1.default);
 app.use("/transactions/", (0, express_2.requireAuth)(), transactionsRoutes_1.default);
+app.use("/users/course-progress", (0, express_2.requireAuth)(), userCourseProgress_1.default);
 // server
 const port = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000;
 if (!isProduction) {
