@@ -12,10 +12,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCourse = exports.updateCourse = exports.createCourse = exports.getCourse = exports.listCourses = void 0;
+exports.deleteCourse = exports.updateCourse = exports.createCourse = exports.getCourse = exports.listCourses = exports.getUploadVideoURl = void 0;
 const courseModel_1 = __importDefault(require("../models/courseModel"));
 const uuid_1 = require("uuid");
 const express_1 = require("@clerk/express");
+const aws_sdk_1 = __importDefault(require("aws-sdk"));
+const s3 = new aws_sdk_1.default.S3();
+const getUploadVideoURl = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { fileName, fileType } = req.body;
+    if (!fileName || !fileType) {
+        res.status(400).json({ message: "file name and type are required" });
+        return;
+    }
+    try {
+        const uniqueId = (0, uuid_1.v4)();
+        const s3Key = `videos/${uniqueId}/${fileName}`;
+        const s3Params = {
+            Bucket: process.env.S3_BUCKETS_NAME || "",
+            key: s3Key,
+            Expires: 60,
+            ContentType: fileType
+        };
+        const uploadUrl = s3.getSignedUrl('putObject', s3Params);
+        const videoIel = `${process.env.CLOUDFRONT_DOMAIN}/videos/${uniqueId}${fileName}`;
+        res.json({ message: "Upload Url Generated successfully", data: { uploadUrl, videoIel } });
+    }
+    catch (e) {
+        res.status(500);
+        res.json({ message: "error retrieving courses ", e });
+    }
+});
+exports.getUploadVideoURl = getUploadVideoURl;
 const listCourses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { category } = req.query;
     try {

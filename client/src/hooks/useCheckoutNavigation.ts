@@ -19,7 +19,9 @@ export const useCheckoutNavigation = () => {
         (step: number) => {
             const newStep = Math.min(Math.max(1, step), 3) // Ensure step is between 1 and 3
             const showSignUp = isSignedIn ? "true" : "false" // Determine if signup should be shown
-            router.push(`/checkout?step=${newStep}&id=${courseId}&showSignUp=${showSignUp}`) // Navigate to the new step
+            router.push(`/checkout?step=${newStep}&id=${courseId}&showSignUp=${showSignUp}`,{
+                scroll:false,
+              }) // Navigate to the new step
         }, [courseId, isSignedIn, router]
     )
 
