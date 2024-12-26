@@ -4,9 +4,9 @@
 
 ## Introduction
 This project aims to create an enterprise-grade Learning Management Application where teachers can upload courses and students can enroll in them. The application leverages modern web technologies and AWS services to ensure scalability, performance, and maintainability.
-![alt text](https://github.com/medhatjachour/Mega-course/blob/main/sample/1.png?raw=true)
-![alt text](https://github.com/medhatjachour/Mega-course/blob/main/sample/2.png?raw=true)
-![alt text](https://github.com/medhatjachour/Mega-course/blob/main/sample/3.png?raw=true)
+![alt text](https://github.com/medhatjachour/Mega-courses/blob/main/sample/1.png?raw=true)
+![alt text](https://github.com/medhatjachour/Mega-courses/blob/main/sample/2.png?raw=true)
+![alt text](https://github.com/medhatjachour/Mega-courses/blob/main/sample/3.png?raw=true)
 
 ## Tech Stack
 
