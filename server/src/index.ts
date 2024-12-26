@@ -5,6 +5,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import * as dynamoose from 'dynamoose';
+import seed from './seed/seedDynamodb'
 import serverless from 'serverless-http'
 import courseRoutes from './routes/courseRoutes'
 import userClerkRoutes from './routes/userClerkRoutes'
@@ -65,3 +66,14 @@ if(!isProduction){
 
 // aws production
 const serverlessApp = serverless(app)
+export const handler = async(event:any,context:any)=>{
+    if(event.action === "seed"){
+        await seed()
+        return {
+            statusCode :200,
+            body:JSON.stringify({message:"data seeded successfully "})
+        }
+    }else{
+        return serverlessApp(event, context)
+    }
+} 

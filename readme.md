@@ -4,6 +4,9 @@
 
 ## Introduction
 This project aims to create an enterprise-grade Learning Management Application where teachers can upload courses and students can enroll in them. The application leverages modern web technologies and AWS services to ensure scalability, performance, and maintainability.
+![alt text](https://github.com/medhatjachour/Mega-course/blob/main/sample/1.png?raw=true)
+![alt text](https://github.com/medhatjachour/Mega-course/blob/main/sample/2.png?raw=true)
+![alt text](https://github.com/medhatjachour/Mega-course/blob/main/sample/3.png?raw=true)
 
 ## Tech Stack
 
@@ -19,11 +22,11 @@ This project aims to create an enterprise-grade Learning Management Application 
 ### Backend
 - **Runtime**: Node.js
 - **Framework**: Express.js
-- **Containerization**: Docker
-- **Serverless**: AWS Lambda, API Gateway
+<!-- - **Containerization**: Docker -->
+<!-- - **Serverless**: AWS Lambda, API Gateway -->
 - **Database**: DynamoDB
-- **Storage**: S3
-- **Content Delivery**: CloudFront
+<!-- - **Storage**: S3 -->
+<!-- - **Content Delivery**: CloudFront -->
 
 ### Authentication
 - **Auth Provider**: Clerk
@@ -37,14 +40,14 @@ This project aims to create an enterprise-grade Learning Management Application 
 - **Responsive Design**: Ensures the application is usable on all devices.
 - **Secure Authentication**: Integrated with Clerk for secure user authentication.
 - **Real-time Updates**: Leverages WebSockets and Server-Sent Events.
-- **Scalable Architecture**: Utilizes AWS services for scalable backend and storage solutions.
+<!-- - **Scalable Architecture**: Utilizes AWS services for scalable backend and storage solutions. -->
 - **Payment Integration**: Handles payments with Stripe.
 
 ## Project Setup
 
 ### Prerequisites
 - Node.js (version >= 14)
-- Docker
+<!-- - Docker -->
 - AWS Account
 - Vercel Account
 - Clerk Account
@@ -89,12 +92,21 @@ docker run -p 3000:3000 nextjs-lms-app
 # environment Variables
 Create a .env.local file in the root directory and add the following environment variables:
 ```bash
-NEXT_PUBLIC_CLERK_FRONTEND_API=your-clerk-frontend-api
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your-stripe-publishable-key
-AWS_ACCESS_KEY_ID=your-aws-access-key
-AWS_SECRET_ACCESS_KEY=your-aws-secret-key
-DYNAMO_DB_TABLE_NAME=your-dynamodb-table-name
-S3_BUCKET_NAME=your-s3-bucket-name
+NEXT_PUBLIC_API_BASE_URL=://localhost:8001
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=
+STRIPE_SECRET_KEY=
+NEXT_PUBLIC_STRIPE_REDIRECT_URL=://localhost:3000
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+Backend
+PORT="8001"
+NODE_ENV=development
+AWS_REGION=
+S3_BUCKET_NAME=
+CLOUDfRONT_DOMAIN=  
+STRIPE_SECRET_KEY=
+CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
 ```
 
