@@ -45,6 +45,7 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const dynamoose = __importStar(require("dynamoose"));
+const serverless_http_1 = __importDefault(require("serverless-http"));
 const courseRoutes_1 = __importDefault(require("./routes/courseRoutes"));
 const userClerkRoutes_1 = __importDefault(require("./routes/userClerkRoutes"));
 const transactionsRoutes_1 = __importDefault(require("./routes/transactionsRoutes"));
@@ -92,3 +93,5 @@ if (!isProduction) {
         console.log(`running on port ${port}`);
     });
 }
+// aws production
+const serverlessApp = (0, serverless_http_1.default)(app);

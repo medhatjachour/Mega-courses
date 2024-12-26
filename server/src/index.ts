@@ -5,6 +5,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import * as dynamoose from 'dynamoose';
+import serverless from 'serverless-http'
 import courseRoutes from './routes/courseRoutes'
 import userClerkRoutes from './routes/userClerkRoutes'
 import transactionsRoutes from './routes/transactionsRoutes'
@@ -61,3 +62,6 @@ if(!isProduction){
         
     })
 }
+
+// aws production
+const serverlessApp = serverless(app)

@@ -11,52 +11,54 @@ import { useUser, useClerk } from "@clerk/nextjs";
 import CoursePreview from "@/components/CoursePreview";
 import { CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCreateTransactionMutation } from '@/state/api'
+import { useCreateTransactionMutation } from "@/state/api";
 import { toast } from "sonner";
 
 const PaymentPageContent = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const [createTransactions] = useCreateTransactionMutation()
+  const [createTransactions] = useCreateTransactionMutation();
   const { navigateToStep } = useCheckoutNavigation();
   const { course, courseId } = useCurrentCourse();
   const { user } = useUser();
   const { signOut } = useClerk();
 
-    const handleSubmit = async (e:React.FormEvent)=>{
-        e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        if(!stripe || ! elements) {
-            toast.error("stripe service isn't available")
-            return
-        }
-        const result = await stripe.confirmPayment({
-            elements,
-            confirmParams:{
-                return_url:`${process.env.NEXT_PUBLIC_STRIPE_REDIRECT_URL}?id=${courseId}`,
-
-            },
-            redirect:"if_required"
-        })
-        if(result.paymentIntent?.status === "succeeded"){
-            const transactionData:Partial<Transaction>={
-                transactionId:result.paymentIntent.id,
-                userId:user?.id,
-                courseId:courseId,
-                paymentProvider:"stripe",
-                amount:course?.price || 0
-            }
-            await createTransactions(transactionData)
-            navigateToStep(3)
-
-        }
+    if (!stripe || !elements) {
+      toast.error("stripe service isn't available");
+      return;
     }
-
-    const handleSignOutAndNavigate = async()=>{
-        signOut()
-        navigateToStep(1)
+    const BaseUrl = process.env.NEXT_PUBLIC_STRIPE_REDIRECT_URL
+      ? `http://${process.env.NEXT_PUBLIC_STRIPE_REDIRECT_URL}`
+      : process.env.NEXT_PUBLIC_PUBLIC_VERCEL_URL
+      ? `http://${process.env.NEXT_PUBLIC_PUBLIC_VERCEL_URL}`
+      : undefined;
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${BaseUrl}/checkout?step=3&id=${courseId}`,
+      },
+      redirect: "if_required",
+    });
+    if (result.paymentIntent?.status === "succeeded") {
+      const transactionData: Partial<Transaction> = {
+        transactionId: result.paymentIntent.id,
+        userId: user?.id,
+        courseId: courseId,
+        paymentProvider: "stripe",
+        amount: course?.price || 0,
+      };
+      await createTransactions(transactionData);
+      navigateToStep(3);
     }
+  };
 
+  const handleSignOutAndNavigate = async () => {
+    signOut();
+    navigateToStep(1);
+  };
 
   if (!course) return null;
 
@@ -109,7 +111,7 @@ const PaymentPageContent = () => {
           className="payment__submit"
           form="payment-form"
           disabled={!stripe || !elements}
-        //   onClick={handleSignOutAndNavigate}
+          //   onClick={handleSignOutAndNavigate}
           // variant="outline"
           // type="button"
         >
