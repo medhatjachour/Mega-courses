@@ -20,15 +20,15 @@ const TeacherCourseCard = ({
   return (
     <Card className="course-card-teacher group">
       <CardHeader className="course-card-teacher__header">
-        {course.image && (
+        {/* {course.image && ( */}
           <Image
-            src={course.image}
+          src={course.image || "/placeholder.png"}
             alt={course.title}
             width={370}
             height={200}
             className="course-card-teacher__image"
           />
-        )}
+        {/* )} */}
       </CardHeader>
       <CardContent className="course-card-teacher__content">
         <div className="flex flex-col">
@@ -58,12 +58,12 @@ const TeacherCourseCard = ({
             </p>
           )}
         </div>
-        <div className="w-full flex gap-2 mt-3">
+        <div className="w-full xl:flex space-y-2 xl:space-y-0 gap-2 mt-3">
         {isOwner?(
             <>
             <div>
                 <Button
-                variant="outline"
+                // variant="outline"
                 className="course-card-teacher__edit-button"
                 onClick={()=>onEdit(course)}
                 >
@@ -74,7 +74,7 @@ const TeacherCourseCard = ({
             <div>
 
             <Button
-                variant="outline"
+                // variant="outline"
                 className="course-card-teacher__edit-button"
                 onClick={()=>onDelete(course)}
                 >

@@ -13,7 +13,7 @@ const {user} = useUser()
     <div className="nonDashboard-navbar__container">
       <div className='nonDashboard-navbar__search'>
 
-      <Link href="/" className="nonDashboard-navbar__brand">
+      <Link href="/" className="nonDashboard-navbar__brand" scroll={false}>
         CourseMega
       </Link>
       <div className="flex items-center gap-4">
@@ -51,10 +51,10 @@ const {user} = useUser()
         />
       </SignedIn>
       <SignedOut>
-        <Link href="/signin" className="nonDashboard-navbar__auth-button--login">
+        <Link href="/signin" className="nonDashboard-navbar__auth-button--login" scroll={false}>
         Log In</Link>
         
-        <Link href="/signup" className="nonDashboard-navbar__auth-button--signup">
+        <Link href="/signup" className="nonDashboard-navbar__auth-button--signup" scroll={false}>
         Sign Up</Link>
       </SignedOut>
     </div>

@@ -42,7 +42,9 @@ const Courses = () => {
 //   unwrap: This function is provided by Redux Toolkit. When you call unwrap() on a dispatched asynchronous action, it returns a promise that resolves to the action's payload if the action was fulfilled, or it rejects with the action's error if the action was rejected. This allows you to handle the action's result in a more fine-grained way, similar to using async/await with try/catch.
 
   const handleEdit = (course: Course) => {
-    router.push(`/teacher/courses/${course.courseId}`);
+    router.push(`/teacher/courses/${course.courseId}`,{
+      scroll:false,
+    });
   };
 
   const handleDelete = async (course: Course) => {
@@ -57,7 +59,9 @@ const Courses = () => {
         teacherId:user.id,
         teacherName : user.fullName||"Unknown Teacher",
     }).unwrap();
-    router.push(`/teacher/courses/${result.courseId}`);
+    router.push(`/teacher/courses/${result.courseId}`,{
+      scroll:false,
+    });
   }
 
   if(isLoading) return <Loading/>

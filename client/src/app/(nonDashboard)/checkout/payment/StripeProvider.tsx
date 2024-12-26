@@ -47,7 +47,7 @@ const {course} = useCurrentCourse()
     }
     if(!clientSecret) return<Loading/>
 
-    return <Elements stripe={stripePromise} options={options}>
+    return <Elements stripe={stripePromise} options={options} key={clientSecret}>
         {children}
     </Elements>
   

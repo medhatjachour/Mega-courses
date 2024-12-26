@@ -10,7 +10,7 @@ import {
   uploadAllVideos,
 } from "@/lib/utils";
 import { openSectionModal, setSections } from "@/state";
-import { useGetCourseQuery, useUpdateCourseMutation } from "@/state/api";
+import { useGetCourseQuery, useGetUploadVideoUrlMutation, useUpdateCourseMutation } from "@/state/api";
 import { useAppDispatch, useAppSelector } from "@/state/redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, Plus } from "lucide-react";
@@ -28,6 +28,7 @@ const CourseEditor = () => {
   const { data: course, isLoading, isError } = useGetCourseQuery(id);
   const [updateCourse] = useUpdateCourseMutation();
   // upload video
+const [getUploadVideoURl] = useGetUploadVideoUrlMutation()
 
   const dispatch = useAppDispatch();
   const { sections } = useAppSelector((state) => state.global.courseEditor);
@@ -59,14 +60,21 @@ const CourseEditor = () => {
 // }, [course, methods]);
   const onSubmit = async (data: CourseFormData) => {
     try {
-      const formData = createCourseFormData(data, sections);
+
+      const updatedSection = await uploadAllVideos(
+        sections,
+        id,
+        getUploadVideoURl
+      )
+
+      const formData = createCourseFormData(data, updatedSection);
 
       const UpdatedCourse = await updateCourse({
         courseId: id,
         formData,
       }).unwrap();
       // await uploadAllVideos(sections , updateCourse.sections,id, uploadVideo)
-      // refetch()
+      // router.refresh();
     } catch (e) {
       console.log("failed to update", e);
     }

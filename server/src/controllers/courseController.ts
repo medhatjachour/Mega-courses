@@ -2,6 +2,41 @@ import { Request, Response } from "express";
 import Course from "../models/courseModel";
 import { v4 as uuidV4 } from 'uuid'
 import { getAuth } from "@clerk/express";
+import AWS from 'aws-sdk'
+
+
+
+const s3 = new AWS.S3()
+
+export const getUploadVideoURl = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    const {fileName , fileType} = req.body;
+    if(!fileName||!fileType){
+        res.status(400).json({message:"file name and type are required"})
+        return;
+    }
+    try{
+        const uniqueId = uuidV4()
+        const s3Key = `videos/${uniqueId}/${fileName}`
+        const s3Params = {
+            Bucket: process.env.S3_BUCKETS_NAME||"",
+            key : s3Key,
+            Expires:60,
+            ContentType:fileType
+        }
+        const uploadUrl = s3.getSignedUrl('putObject',s3Params)
+        const videoIel = `${process.env.CLOUDFRONT_DOMAIN}/videos/${uniqueId}${fileName}`
+        res.json({ message: "Upload Url Generated successfully", data: {uploadUrl,videoIel} })
+
+    }catch (e){
+        res.status(500)
+        res.json({ message: "error retrieving courses ", e })
+    }
+}
+ 
+
 export const listCourses = async (
     req: Request,
     res: Response

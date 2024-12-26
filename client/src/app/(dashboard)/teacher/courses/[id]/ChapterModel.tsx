@@ -102,7 +102,9 @@ const ChapterModel = () => {
           </button>
         </div>
         <Form {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}
+          className="chapter-modal__form"
+          >
             <CustomFormField
               name="title"
               type="text"
@@ -126,16 +128,6 @@ const ChapterModel = () => {
                   </FormLabel>
                   <FormControl>
                     <div>
-                      {typeof value === "string" && value && (
-                        <div className="mb-2 text-sm text-customgreys-dirtyGrey">
-                          CurrentVideo file:{value.split("/").pop()}
-                        </div>
-                      )}
-                      {value instanceof File && (
-                        <div className="mb-2 text-sm text-customgreys-dirtyGrey">
-                          Selected file:{value.name}
-                        </div>
-                      )}
                       <Input
                         type="file"
                         accept="video/*"
@@ -145,8 +137,18 @@ const ChapterModel = () => {
                             onChange(file);
                           }
                         }}
-                        className=" border-none bg-customgreys-darkGrey p-4"
+                        className=" border-none bg-customgreys-darkGrey cursor-pointer py-2"
                       />
+                      {typeof value === "string" && value && (
+                        <div className="mb-2 text-sm text-gray-600">
+                          CurrentVideo file:{value.split("/").pop()}
+                        </div>
+                      )}
+                      {value instanceof File && (
+                        <div className="mb-2 text-sm text-gray-600">
+                          Selected file:{value.name}
+                        </div>
+                      )}
                     </div>
                   </FormControl>
                   <FormMessage className="text-red-400" />
